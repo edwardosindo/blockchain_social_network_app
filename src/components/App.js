@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from '../logo.png';
 import './App.css';
+import SocialNetwork from '../abis/SocialNetwork.json';
 import Web3 from 'web3';
 
 import Navbar from './Navbar';
@@ -33,12 +34,32 @@ class App extends Component {
     const accounts = await web3.eth.getAccounts()
     console.log(accounts)
     this.setState({ account: accounts[0] })
+    //Network ID
+    const networkId = await web3.eth.net.getId()
+    const networkData = SocialNetwork.networks[networkId]
+    //console.log(networkId)
+    if(networkData) {
+      //This is all we need to be able to call all the methods we created on our solidity network
+      const socialNetwork = web3.eth.Contract(SocialNetwork.abi, networkData.address)
+      this.setState({ socialNetwork })
+      const postCount = await socialNetwork.methods.postCount().call()
+      this.setState({ postCount })
+      console.log(postCount)
+      //console.log(networkId)
+      //console.log(socialNetwork)
+    } else {
+      window.alert('SocialNetwork contract not deployed to the detected network')
+    }
+    // Address 
+    // ABI
   }
 
   constructor(props) {
     super(props)
     this.state = {
-      account: ''
+      account: '',
+      socialNetwork: null,
+      postCount: 0 
     }
   }
 
