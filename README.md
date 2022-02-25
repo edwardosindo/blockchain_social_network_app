@@ -7,3 +7,8 @@ This is a complete decentralized social Network backed on the blockchain powered
 2. You can sign transactionsand put them on the blockchain
 3. You can tip a post with crypto currency
 4. The most tipped post appears at the Top
+
+
+#Reference point
+https://www.youtube.com/watch?v=nvw27RCTaEw
+https://www.dappuniversity.com/articles/blockchain-tutorial
